@@ -1,4 +1,4 @@
-import CardMenu from "./cardmenu";
+import CardMenu from "../../components/ui/cardmenu";
 import { Sidebar } from "./sidebar";
 
 
