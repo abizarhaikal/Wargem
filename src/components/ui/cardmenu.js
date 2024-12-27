@@ -52,7 +52,7 @@ export default function CardMenu() {
   };
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
+    <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-4 p-4 mt-20 md:mt-0"> 
       {menuItems.map((item, index) => (
         <div
           key={item.id}
