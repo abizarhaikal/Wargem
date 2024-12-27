@@ -10,3 +10,15 @@ export const fetchMenuItems = async () => {
     throw err;
   }
 };
+
+export const loginAdmin = async (username, password) => {
+  try {
+    const authData = await pb
+      .collection("admin")
+      .authWithPassword(username, password);
+    return authData;
+  } catch (err) {
+    console.error("Error logging in admin:", err);
+    throw err;
+  }
+};

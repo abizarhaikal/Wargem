@@ -11,15 +11,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
-    "/menu/page": [
+    "/admin/login/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/menu/page.js"
-    ],
-    "/menu/makanan/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/menu/makanan/page.js"
+      "static/chunks/app/admin/login/page.js"
     ]
   }
 }
