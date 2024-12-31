@@ -1,7 +1,5 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/page": "app/page.js",
-  "/admin/HalamanProduk/page": "app/admin/HalamanProduk/page.js",
-  "/admin/HalamanProduk/ProdukBaru/page": "app/admin/HalamanProduk/ProdukBaru/page.js",
-  "/admin/HalamanProduk/UpdateProduk/[id]/page": "app/admin/HalamanProduk/UpdateProduk/[id]/page.js"
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/loginsignup/signup/page": "app/loginsignup/signup/page.js",
+  "/loginsignup/login/page": "app/loginsignup/login/page.js"
 }
