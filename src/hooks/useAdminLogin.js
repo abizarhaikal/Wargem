@@ -11,7 +11,7 @@ export default function useAdminLogin() {
     setError(null); // Reset error state
     try {
       const data = await loginAdmin(username, password); // Call API
-      setAdminData(data);
+      setAdminData(data); // Set data
       return data;
     } catch (err) {
       setError(err.message || "Failed to login. Please try again."); // Set readable error message

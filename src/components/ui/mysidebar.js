@@ -1,8 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { usePathname,useRouter } from "next/navigation";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import { usePathname, useRouter } from "next/navigation";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import {
@@ -21,10 +26,26 @@ export default function MySidebar() {
   const router = useRouter();
 
   const navigation = [
-    { path: "/", icon: <Home size={20} />, label: "Menu Favorite" },
-    { path: "/menu/makanan", icon: <Utensils size={20} />, label: "Makanan" },
-    { path: "/menu/minuman", icon: <Coffee size={20} />, label: "Minuman" },
-    { path: "/menu/cemilan", icon: <Cookie size={20} />, label: "Cemilan" },
+    {
+      path: "/",
+      icon: <Home size={20} />,
+      label: "Menu Favorite",
+    },
+    {
+      path: "/menu/makanan",
+      icon: <Utensils size={20} />,
+      label: "Makanan",
+    },
+    {
+      path: "/menu/minuman",
+      icon: <Coffee size={20} />,
+      label: "Minuman",
+    },
+    {
+      path: "/menu/cemilan",
+      icon: <Cookie size={20} />,
+      label: "Cemilan",
+    },
   ];
 
   React.useEffect(() => {
@@ -65,7 +86,7 @@ export default function MySidebar() {
                   key={item.path}
                   variant={activePath === item.path ? "secondary" : "ghost"}
                   className={`w-full justify-start gap-2 text-black hover:bg-red-400 ${
-                    activePath === item.path ? 'bg-red-600' : 'hover:bg-red-400'
+                    activePath === item.path ? "bg-red-600" : "hover:bg-red-400"
                   }`}
                   onClick={() => handleNavigate(item.path)}
                 >
@@ -95,7 +116,11 @@ export default function MySidebar() {
         <div className="h-16 bg-red-500 border-b border-red-400 flex items-center justify-center">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="absolute left-4 text-white hover:bg-red-400">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute left-4 text-white hover:bg-red-400"
+              >
                 <Menu size={24} />
               </Button>
             </SheetTrigger>
@@ -124,9 +149,13 @@ export default function MySidebar() {
                     {navigation.map((item) => (
                       <Button
                         key={item.path}
-                        variant={activePath === item.path ? "secondary" : "ghost"}
+                        variant={
+                          activePath === item.path ? "secondary" : "ghost"
+                        }
                         className={`w-full justify-start gap-2 text-white hover:bg-red-400 ${
-                          activePath === item.path ? 'bg-red-600' : 'hover:bg-red-400'
+                          activePath === item.path
+                            ? "bg-red-600"
+                            : "hover:bg-red-400"
                         }`}
                         onClick={() => handleNavigate(item.path)}
                       >

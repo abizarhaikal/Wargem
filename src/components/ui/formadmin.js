@@ -39,7 +39,7 @@ export default function FormAdmin() {
     const { username, password } = data;
     try {
       const result = await login(username, password); // Call login function from useAdminLogin hook
-      console.log("Admin logged in:", result);
+      console.log("Admin logged in:", result.token);
       if (result != null) {
         const successMessage = "Login successful. Redirecting...";
         setIsSuccess(true); // Set success message
