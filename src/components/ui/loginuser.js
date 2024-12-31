@@ -5,6 +5,7 @@ import { FormProvider, useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Image from "next/image";
+import { useRouter } from "next/navigation"
 import {
   FormItem,
   FormLabel,
@@ -16,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import useUserLogin from "../../hooks/useUserLogin";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"; // ShadCN alert component
 import { AlertCircle, CheckCircle } from "lucide-react";
+import pb from "@/services/pocketbaseservice";
 
 const schema = z.object({
   username: z.string().min(2, "Username must be at least 2 characters long"),
@@ -34,6 +36,7 @@ export default function UserLoginForm() {
   const {login, isLoading, error, userData} = useUserLogin();
   const [formError, setFormError] = useState(null); // Local state for form error
   const [isSuccess, setIsSuccess] = useState(false); // Local state for success message
+  const router = useRouter();
 
   const onSubmit = async (data) => {
     const { username, password } = data;
@@ -45,6 +48,7 @@ export default function UserLoginForm() {
         const successMessage = "Login successful. Redirecting...";
         setIsSuccess(true); // Set success message
         setIsSuccess(successMessage);
+        router.push("/menu");
       } 
       setFormError(null);
 
@@ -93,6 +97,13 @@ export default function UserLoginForm() {
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>Error</AlertTitle>
               <AlertDescription>{formError}</AlertDescription>
+            </Alert>
+          )}
+          {error && (
+            <Alert variant="destructive" className="mb-4">
+                <AlertCircle className="h-4 w-4"/>
+                <AlertTitle>Error</AlertTitle>
+                <AlertDescription>{error}</AlertDescription>
             </Alert>
           )}
 

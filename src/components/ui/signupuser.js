@@ -13,9 +13,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 import useSignupUser from "@/hooks/useSignupUser";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"; // ShadCN alert component
-import { AlertCircle, CheckCircle } from "lucide-react";
+import { AlertCircle, CheckCircle, Router } from "lucide-react";
 
 const schema = z
   .object({
@@ -41,6 +42,7 @@ export default function UserSignupForm() {
   });
 
   const {signup, isLoading, error, userData} = useSignupUser();
+  const router = useRouter();
   const [formError, setFormError] = useState(null); // Local state for form error
   const [isSuccess, setIsSuccess] = useState(false); // Local state for success message
 
@@ -54,6 +56,8 @@ export default function UserSignupForm() {
         const successMessage = "SignUp successful. Redirecting...";
         setIsSuccess(true); // Set success message
         setIsSuccess(successMessage);
+        methods.reset();
+        setTimeout(() => router.push("/loginsignup/login"), 2000);
       } 
       setFormError(null);// Reset error on successful signup
       methods.reset(); // Clear form fields
