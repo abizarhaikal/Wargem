@@ -6,25 +6,40 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/admin/HalamanProduk/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/admin/HalamanProduk/page.js"
-    ],
     "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
-    "/admin/HalamanProduk/ProdukBaru/page": [
+    "/menu/makanan/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/admin/HalamanProduk/ProdukBaru/page.js"
+      "static/chunks/app/menu/makanan/page.js"
     ],
-    "/admin/HalamanProduk/UpdateProduk/[id]/page": [
+    "/menu/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/admin/HalamanProduk/UpdateProduk/[id]/page.js"
+      "static/chunks/app/menu/page.js"
+    ],
+    "/menu/minuman/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/menu/minuman/page.js"
+    ],
+    "/menu/cemilan/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/menu/cemilan/page.js"
+    ],
+    "/admin/login/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/login/page.js"
+    ],
+    "/admin/HalamanProduk/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/HalamanProduk/page.js"
     ],
     "/_not-found/page": [
       "static/chunks/webpack.js",

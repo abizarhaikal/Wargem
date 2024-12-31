@@ -6,8 +6,8 @@ import { useProductData } from "@/hooks/useProductData";
 import { ProductLayout } from "@/components/ui/admin/HalamanProduk/ProductLayout";
 import { SearchBar } from "@/components/ui/admin/HalamanProduk/SearchBar";
 import { ProductTable } from "@/components/ui/admin/HalamanProduk/ProductTable";
-import CustomSidebar from "@/components/ui/admin/Sidebar";
-import { SidebarProvider } from "@/components/ui/sidebar2";
+import CustomSidebar from "@/components/ui/sidebaradmin";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 const pb = new PocketBase("https://exciting-spell.pockethost.io");
 

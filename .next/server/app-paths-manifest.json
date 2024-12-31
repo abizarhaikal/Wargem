@@ -1,7 +1,9 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/page": "app/page.js",
+  "/menu/makanan/page": "app/menu/makanan/page.js",
+  "/menu/page": "app/menu/page.js",
+  "/menu/minuman/page": "app/menu/minuman/page.js",
+  "/menu/cemilan/page": "app/menu/cemilan/page.js",
   "/admin/HalamanProduk/page": "app/admin/HalamanProduk/page.js",
-  "/admin/HalamanProduk/ProdukBaru/page": "app/admin/HalamanProduk/ProdukBaru/page.js",
-  "/admin/HalamanProduk/UpdateProduk/[id]/page": "app/admin/HalamanProduk/UpdateProduk/[id]/page.js"
+  "/admin/login/page": "app/admin/login/page.js"
 }
