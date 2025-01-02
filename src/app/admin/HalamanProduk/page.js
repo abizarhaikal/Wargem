@@ -7,7 +7,7 @@ import { ProductLayout } from "@/components/ui/admin/HalamanProduk/ProductLayout
 import { SearchBar } from "@/components/ui/admin/HalamanProduk/SearchBar";
 import { ProductTable } from "@/components/ui/admin/HalamanProduk/ProductTable";
 import CustomSidebar from "@/components/ui/admin/Sidebar";
-import { SidebarProvider } from "@/components/ui/sidebar2";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 const pb = new PocketBase("https://exciting-spell.pockethost.io");
 
@@ -46,7 +46,7 @@ export default function ProductListPage() {
     <SidebarProvider>
       <div className="flex h-screen">
         <CustomSidebar />
-        <main className="flex-1 p-6 bg-gray-50">
+        <main className="flex-1 p-6 bg-gray-50 ml-12"> {/* Added ml-12 for left margin */}
           <ProductLayout>
             <SearchBar 
               value={search}

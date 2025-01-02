@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { ArrowLeft } from "lucide-react"; // Import ikon dari lucide-react
 import { Button } from "@/components/ui/button";
 import { DateInput } from "@/components/ui/admin/ProdukBaru/DateInput";
 import { ImageUpload } from "@/components/ui/admin/UpdateProduk/ImageUpload";
@@ -130,8 +131,16 @@ export default function UpdateProdukPage({ params }) {
   };
 
   return (
-    <div className="p-8 bg-gray-50 min-h-screen">
-      <h1 className="text-2xl font-bold mb-4">Update Produk</h1>
+    <div className="p-8 bg-gray-50 min-h-screen ml-12">
+      <div className="flex items-center space-x-4 mb-6">
+        <button
+          className="p-2 rounded-full bg-green-400 text-white hover:bg-green-500"
+          onClick={() => router.push("/admin/HalamanProduk")}
+        >
+          <ArrowLeft size={20} />
+        </button>
+        <h1 className="text-2xl font-bold">Update Produk</h1>
+      </div>
       <div className="space-y-6">
         <DateInput />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -148,8 +157,7 @@ export default function UpdateProdukPage({ params }) {
               stock: formData.stock,
             }}
             onChange={(updatedFields) =>
-              setFormData({ ...formData, ...updatedFields })
-            }
+              setFormData({ ...formData, ...updatedFields })}
           />
         </div>
         <CategorySelector

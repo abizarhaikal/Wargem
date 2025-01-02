@@ -10,7 +10,7 @@ export function SearchBar({ value, onChange, onAddNew }) {
         onChange={(e) => onChange(e.target.value.trimStart())}
         className="w-1/2"
       />
-      <Button  onClick={onAddNew}>+ Tambahkan Produk Baru</Button>
+      <Button className="bg-green-400 text-white hover:bg-green-500" onClick={onAddNew}>+ Tambahkan Produk Baru</Button>
     </div>
   );
 }

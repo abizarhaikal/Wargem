@@ -6,15 +6,15 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/admin/HalamanProduk/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/admin/HalamanProduk/page.js"
-    ],
     "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
+    ],
+    "/admin/HalamanProduk/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/HalamanProduk/page.js"
     ],
     "/admin/HalamanProduk/ProdukBaru/page": [
       "static/chunks/webpack.js",
@@ -26,10 +26,20 @@
       "static/chunks/main-app.js",
       "static/chunks/app/admin/HalamanProduk/UpdateProduk/[id]/page.js"
     ],
-    "/_not-found/page": [
+    "/admin/Pengaturan/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/admin/Pengaturan/page.js"
+    ],
+    "/admin/Logout/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/Logout/page.js"
+    ],
+    "/admin/Dashboard/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/Dashboard/page.js"
     ]
   }
 }
