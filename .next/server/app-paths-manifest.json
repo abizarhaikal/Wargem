@@ -1,9 +1,8 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/menu/makanan/page": "app/menu/makanan/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/menu/page": "app/menu/page.js",
+  "/loginsignup/login/page": "app/loginsignup/login/page.js",
   "/menu/minuman/page": "app/menu/minuman/page.js",
-  "/menu/cemilan/page": "app/menu/cemilan/page.js",
-  "/admin/HalamanProduk/page": "app/admin/HalamanProduk/page.js",
-  "/admin/login/page": "app/admin/login/page.js"
+  "/menu/makanan/page": "app/menu/makanan/page.js",
+  "/page": "app/page.js"
 }
