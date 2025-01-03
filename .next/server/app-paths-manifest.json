@@ -1,5 +1,7 @@
 {
-  "/admin/login/page": "app/admin/login/page.js",
-  "/admin/Dashboard/page": "app/admin/Dashboard/page.js",
-  "/admin/orders/page": "app/admin/orders/page.js"
+  "/page": "app/page.js",
+  "/menu/page": "app/menu/page.js",
+  "/history/page": "app/history/page.js",
+  "/menu/minuman/page": "app/menu/minuman/page.js",
+  "/menu/cemilan/page": "app/menu/cemilan/page.js"
 }
