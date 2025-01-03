@@ -1,8 +1,8 @@
 {
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/menu/page": "app/menu/page.js",
-  "/loginsignup/login/page": "app/loginsignup/login/page.js",
-  "/menu/minuman/page": "app/menu/minuman/page.js",
-  "/menu/makanan/page": "app/menu/makanan/page.js",
-  "/page": "app/page.js"
+  "/admin/HalamanProduk/page": "app/admin/HalamanProduk/page.js",
+  "/admin/orders/page": "app/admin/orders/page.js",
+  "/admin/Dashboard/page": "app/admin/Dashboard/page.js",
+  "/admin/Pemasukan/page": "app/admin/Pemasukan/page.js",
+  "/admin/Pengaturan/page": "app/admin/Pengaturan/page.js"
 }

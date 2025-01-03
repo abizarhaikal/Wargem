@@ -31,7 +31,7 @@ export default function Page() {
     <SidebarProvider className="flex h-screen">
       <CustomSidebar />
 
-      <main className="flex-1 p-6 bg-gray-50">
+      <main className="flex-1 p-6 bg-gray-50 ml-12">
         <h1 className="text-xl font-semibold mb-4">Order Items</h1>
 
         {/* Alert Section */}

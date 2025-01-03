@@ -6,30 +6,50 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/loginsignup/login/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/loginsignup/login/page.js"
+      "static/chunks/app/page.js"
+    ],
+    "/admin/HalamanProduk/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/HalamanProduk/page.js"
+    ],
+    "/admin/HalamanProduk/ProdukBaru/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/HalamanProduk/ProdukBaru/page.js"
+    ],
+    "/admin/HalamanProduk/UpdateProduk/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/HalamanProduk/UpdateProduk/[id]/page.js"
     ],
     "/menu/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/menu/page.js"
     ],
-    "/menu/minuman/page": [
+    "/admin/Dashboard/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/menu/minuman/page.js"
+      "static/chunks/app/admin/Dashboard/page.js"
     ],
-    "/menu/makanan/page": [
+    "/admin/Pemasukan/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/menu/makanan/page.js"
+      "static/chunks/app/admin/Pemasukan/page.js"
     ],
-    "/page": [
+    "/admin/Pengaturan/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
+      "static/chunks/app/admin/Pengaturan/page.js"
+    ],
+    "/admin/orders/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/orders/page.js"
     ]
   }
 }

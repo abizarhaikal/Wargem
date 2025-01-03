@@ -1,4 +1,4 @@
-// File: C:\Users\timot\Documents\Matkul\SMT 7\Wargem\Wargem\src\app\menu\page.jsx
+// File: C:\Users\Mario\Downloads\Tugas P3L\Wargem\src\app\menu\page.jsx
 import * as entry from '../../../../src/app/menu/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

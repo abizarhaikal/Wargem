@@ -44,9 +44,9 @@ export default function ProductListPage() {
 
   return (
     <SidebarProvider>
-      <div className="flex h-screen">
+      <div className="flex h-screen w-full">
         <CustomSidebar />
-        <main className="flex-1 p-6 bg-gray-50">
+        <main className="flex-1 p-6 bg-gray-50 ml-12"> {/* Added ml-12 for left margin */}
           <ProductLayout>
             <SearchBar 
               value={search}
