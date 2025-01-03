@@ -1,4 +1,4 @@
-// File: C:\Users\Mario\Downloads\Tugas P3L\Wargem\src\app\layout.js
+// File: E:\RPPL-KELOMPOK2\wargem-project\src\app\layout.js
 import * as entry from '../../../src/app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

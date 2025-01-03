@@ -1,8 +1,5 @@
 {
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/admin/HalamanProduk/page": "app/admin/HalamanProduk/page.js",
-  "/admin/orders/page": "app/admin/orders/page.js",
+  "/admin/login/page": "app/admin/login/page.js",
   "/admin/Dashboard/page": "app/admin/Dashboard/page.js",
-  "/admin/Pemasukan/page": "app/admin/Pemasukan/page.js",
-  "/admin/Pengaturan/page": "app/admin/Pengaturan/page.js"
+  "/admin/orders/page": "app/admin/orders/page.js"
 }
