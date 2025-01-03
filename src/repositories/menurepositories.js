@@ -136,3 +136,18 @@ export const registerUser = async (username, email, password) => {
     throw err;
   }
 };
+
+export const fetchHistoryOrder = async () => {
+  try {
+    pb.autoCancellation(true);
+    const records = await pb.collection('orders').getFullList({
+      expand: 'customer,menu,items', // Expand field relasi
+    });
+
+    console.log("All Orders:", records); // Data langsung di records
+    return records;
+  } catch (err) {
+    console.error("Error fetching all orders:", err.message || err);
+    throw err;
+  }
+};
