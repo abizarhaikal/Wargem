@@ -1,4 +1,4 @@
-// File: E:\SEMESTER 7\Wargem\src\app\layout.js
+// File: C:\Users\Bintang\OneDrive\Desktop\Bintang\4IA01\PPPL\Wargem\src\app\layout.js
 import * as entry from '../../../src/app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

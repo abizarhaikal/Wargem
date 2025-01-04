@@ -5,6 +5,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { useAuth } from "@/hooks/useAuth";
 import AlertDialogCustom from "@/components/ui/AlertDialogCustom";
 import useAlertDialogStore from "@/store/alertDialogStore";
+import OrderItemsTable from "../../../components/ui/OrderItems"; // Import OrderItemsTable
 
 export default function Dashboard() {
   // Gunakan isAuthenticated dari useAuth
@@ -34,6 +35,9 @@ export default function Dashboard() {
             Selamat datang di Dashboard Anda! Di sini Anda dapat mengelola
             aplikasi Anda.
           </p>
+
+          {/* Menambahkan OrderItemsTable */}
+          <OrderItemsTable />
         </main>
 
         {/* Alert Dialog */}

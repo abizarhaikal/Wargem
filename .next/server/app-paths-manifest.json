@@ -1,7 +1,3 @@
 {
-  "/page": "app/page.js",
-  "/menu/page": "app/menu/page.js",
-  "/history/page": "app/history/page.js",
-  "/menu/minuman/page": "app/menu/minuman/page.js",
-  "/menu/cemilan/page": "app/menu/cemilan/page.js"
+  "/_not-found/page": "app/_not-found/page.js"
 }
