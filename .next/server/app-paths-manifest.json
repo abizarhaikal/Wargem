@@ -1,3 +1,9 @@
 {
-  "/admin/dashboard/page": "app/admin/dashboard/page.js"
+  "/admin/Dashboard/page": "app/admin/Dashboard/page.js",
+  "/page": "app/page.js",
+  "/history/page": "app/history/page.js",
+  "/menu/makanan/page": "app/menu/makanan/page.js",
+  "/menu/minuman/page": "app/menu/minuman/page.js",
+  "/admin/Pemasukan/page": "app/admin/Pemasukan/page.js",
+  "/admin/orders/page": "app/admin/orders/page.js"
 }

@@ -6,10 +6,70 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/admin/dashboard/page": [
+    "/admin/Dashboard/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/admin/dashboard/page.js"
+      "static/chunks/app/admin/Dashboard/page.js"
+    ],
+    "/admin/login/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/login/page.js"
+    ],
+    "/admin/orders/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/orders/page.js"
+    ],
+    "/admin/Pemasukan/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/Pemasukan/page.js"
+    ],
+    "/admin/HalamanProduk/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/HalamanProduk/page.js"
+    ],
+    "/admin/Pengaturan/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/Pengaturan/page.js"
+    ],
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+    ],
+    "/loginsignup/login/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/loginsignup/login/page.js"
+    ],
+    "/menu/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/menu/page.js"
+    ],
+    "/menu/makanan/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/menu/makanan/page.js"
+    ],
+    "/menu/minuman/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/menu/minuman/page.js"
+    ],
+    "/menu/cemilan/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/menu/cemilan/page.js"
+    ],
+    "/history/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/history/page.js"
     ]
   }
 }

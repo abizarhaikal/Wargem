@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Sidebar from "./sidebar";
+import Sidebar from "@/components/ui/mysidebar";
 import pb from "../../services/pocketbaseservice";
 
 export default function OrderHistoryPage() {
@@ -14,19 +14,19 @@ export default function OrderHistoryPage() {
       try {
         // Mendapatkan userId dari sesi PocketBase
         const userId = pb.authStore.model?.id;
-  
+
         if (!userId) {
           setError("User not logged in");
           setIsLoading(false);
           return;
         }
-  
+
         // Query pesanan berdasarkan relasi `customer`
         const orders = await pb.collection("orders").getFullList({
           filter: `customer="${userId}"`, // Filter berdasarkan customer (user_id)
           expand: "items,menu", // Ekspansi relasi ke items dan menu
         });
-  
+
         // Format data
         const formattedOrders = orders.map((order) => ({
           id: order.id,
@@ -40,7 +40,7 @@ export default function OrderHistoryPage() {
             total_price: item?.total_price || 0,
           })),
         }));
-  
+
         setHistoryItems(formattedOrders);
       } catch (err) {
         setError(err.message || "Something went wrong");
@@ -48,15 +48,14 @@ export default function OrderHistoryPage() {
         setIsLoading(false);
       }
     };
-  
+
     fetchOrders();
   }, []);
-  
 
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <Sidebar className="hidden md:block" />
+      <Sidebar />
 
       {/* Konten Utama */}
       <div className="flex-1 p-4">
@@ -100,10 +99,12 @@ export default function OrderHistoryPage() {
                         >
                           {/* Quantity di sebelah kiri dan dibuat bold */}
                           <span className="font-bold">{item.quantity}x</span>
-                          
+
                           {/* Nama menu di tengah */}
-                          <span className="flex-1 px-2 truncate">{item.menu_name}</span>
-                          
+                          <span className="flex-1 px-2 truncate">
+                            {item.menu_name}
+                          </span>
+
                           {/* Harga di sebelah kanan */}
                           <span className="text-right">
                             Rp {item.total_price.toLocaleString("id-ID")}
@@ -111,7 +112,6 @@ export default function OrderHistoryPage() {
                         </li>
                       ))}
                     </ul>
-
                   </div>
 
                   {/* Total Harga */}

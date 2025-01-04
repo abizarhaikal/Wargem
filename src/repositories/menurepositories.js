@@ -1,9 +1,10 @@
 import pb from "../services/pocketbaseservice";
 import { setCookie } from "cookies-next";
+
 export const fetchMenuItems = async () => {
   try {
-    const records = await pb.collection("foods").getFullList();
     pb.autoCancellation(false);
+    const records = await pb.collection("foods").getFullList();
     return records;
   } catch (err) {
     console.log("Error fetching menu items", err);
@@ -14,11 +15,11 @@ export const fetchMenuItems = async () => {
 export const fetchOrdersItems = async () => {
   try {
     // Fetch data dari "order_items" dengan expand ke "order_id" dan "menu_id"
+    pb.autoCancellation(false);
     const records = await pb.collection("order_items").getList(1, 50, {
       expand: "order_id,menu_id",
     });
 
-    pb.autoCancellation(false);
     // Group data by order_id
     const groupedOrders = records.items.reduce((acc, item) => {
       const orderId = item.expand.order_id.id;
@@ -94,7 +95,7 @@ export const loginAdmin = async (username, password) => {
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
     });
-    
+
     return authData;
   } catch (err) {
     console.error("Error logging in admin:", err);
@@ -140,8 +141,8 @@ export const registerUser = async (username, email, password) => {
 export const fetchHistoryOrder = async () => {
   try {
     pb.autoCancellation(true);
-    const records = await pb.collection('orders').getFullList({
-      expand: 'customer,menu,items', // Expand field relasi
+    const records = await pb.collection("orders").getFullList({
+      expand: "customer,menu,items", // Expand field relasi
     });
 
     console.log("All Orders:", records); // Data langsung di records

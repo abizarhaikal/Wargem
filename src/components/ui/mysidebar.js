@@ -17,6 +17,7 @@ import {
   Cookie,
   Menu,
   ShoppingBag,
+  History,
 } from "lucide-react";
 
 export default function MySidebar() {
@@ -45,6 +46,11 @@ export default function MySidebar() {
       path: "/menu/cemilan",
       icon: <Cookie size={20} />,
       label: "Cemilan",
+    },
+    {
+      path: "/history",
+      icon: <History size={20} />,
+      label: "History Pemesanan",
     },
   ];
 
