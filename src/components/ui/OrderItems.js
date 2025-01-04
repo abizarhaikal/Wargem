@@ -23,6 +23,10 @@ const Dashboard = () => {
     llves35w0f3imq9: { name: "Es Cendol", type: "drink" },
     emgm6h9svm15452: { name: "Ayam Geprek", type: "food" },
     "447a88p6j5qo62d": { name: "Bakso", type: "food" },
+    "01u6d1q1za3r4po": { name: "Kerupuk", type: "food" },
+    "grm8nq5dz672apk": { name: "Teh", type: "drink" },
+    "eyw3nh1w5iwz9pg": { name: "Mie Rebus", type: "food" },
+    "blnlb89c7s3s1b4": { name: "Mie Goreng", type: "food" },
   };
 
   // Enhance order items with name and type
