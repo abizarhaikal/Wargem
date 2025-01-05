@@ -42,7 +42,7 @@ export default function UserLoginForm() {
     const { username, password } = data;
     try {
       const result = await login(username, password);
-      console.log("User loged in: ", result);
+      console.log("User loged in: ", result.token);
       // Simulate API call
       if (result != null) {
         const successMessage = "Login successful. Redirecting...";

@@ -1,4 +1,4 @@
-// File: E:\SEMESTER 7\Wargem\src\app\loginsignup\login\page.jsx
+// File: C:\Users\timot\Documents\Matkul\SMT 7\Wargem\Wargem\src\app\loginsignup\login\page.jsx
 import * as entry from '../../../../../src/app/loginsignup/login/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

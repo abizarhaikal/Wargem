@@ -10,7 +10,7 @@ export default function Dashboard() {
   // Gunakan isAuthenticated dari useAuth
   const { isAuthenticated } = useAuth();
   const showDialog = useAlertDialogStore((state) => state.showDialog);
-
+  console.log(isAuthenticated);
   useEffect(() => {
     // Tampilkan welcome message hanya jika user terautentikasi
     if (isAuthenticated) {

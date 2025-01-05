@@ -1,7 +1,6 @@
 {
-  "/page": "app/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/loginsignup/login/page": "app/loginsignup/login/page.js",
   "/menu/page": "app/menu/page.js",
-  "/history/page": "app/history/page.js",
-  "/menu/minuman/page": "app/menu/minuman/page.js",
-  "/menu/cemilan/page": "app/menu/cemilan/page.js"
+  "/menu/makanan/page": "app/menu/makanan/page.js"
 }
