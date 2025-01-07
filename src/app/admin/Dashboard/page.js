@@ -8,20 +8,6 @@ import useAlertDialogStore from "@/store/alertDialogStore";
 import OrderItemsTable from "../../../components/ui/OrderItems"; // Import OrderItemsTable
 
 export default function Dashboard() {
-  // Gunakan isAuthenticated dari useAuth
-  const { isAuthenticated } = useAuth();
-  const showDialog = useAlertDialogStore((state) => state.showDialog);
-
-  useEffect(() => {
-    // Tampilkan welcome message hanya jika user terautentikasi
-    if (isAuthenticated) {
-      showDialog(
-        "Selamat Datang",
-        "Anda telah berhasil masuk ke Dashboard Admin.",
-      );
-    }
-  }, [isAuthenticated, showDialog]);
-
   return (
     <SidebarProvider>
       <div className="flex h-screen w-full">

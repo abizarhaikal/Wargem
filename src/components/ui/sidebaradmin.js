@@ -1,6 +1,7 @@
+// src/components/CustomSidebar.jsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import {
   Sidebar,
@@ -8,7 +9,16 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Home,
   ShoppingBag,
@@ -18,12 +28,35 @@ import {
   ChevronLeft,
   ChevronRight,
   List,
+  User2,
+  ChevronUp,
 } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import useAlertDialogStore from "@/store/alertDialogStore";
 
 export default function CustomSidebar() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Default tertutup
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+  const { isAuthenticated } = useAuth();
+  const showDialog = useAlertDialogStore((state) => state.showDialog);
+
+  useEffect(() => {
+    const shouldShowWelcome =
+      pathname === "/admin/Dashboard" &&
+      isAuthenticated &&
+      !localStorage.getItem("welcomeShown");
+
+    if (shouldShowWelcome) {
+      showDialog(
+        "Selamat Datang",
+        "Anda telah berhasil masuk ke Dashboard Admin.",
+        () => {
+          localStorage.setItem("welcomeShown", "true");
+        }
+      );
+    }
+  }, [pathname, isAuthenticated, showDialog]);
 
   const isActive = (path) => pathname === path;
 
@@ -31,111 +64,100 @@ export default function CustomSidebar() {
     setIsSidebarOpen((prev) => !prev);
   };
 
+  const handleAccountClick = () => {
+    router.push("/admin/Account");
+  };
+
+  const handleAddAdminClick = () => {
+    router.push("/admin/AddAdmin");
+  };
+
+  const handleLogoutClick = () => {
+    // Add your logout logic here
+    router.push("/login");
+  };
+
+  const menuItems = [
+    { label: "Dashboard", icon: Home, path: "/admin/Dashboard" },
+    { label: "Pemasukan", icon: PieChart, path: "/admin/Pemasukan" },
+    { label: "Pesanan", icon: List, path: "/admin/orders" },
+    { label: "Produk", icon: ShoppingBag, path: "/admin/HalamanProduk" },
+    { label: "Pengaturan", icon: Settings, path: "/admin/Pengaturan" },
+  ];
+
   return (
     <div className="relative h-screen">
-      {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 h-full bg-white border-r shadow-md transition-all duration-300 z-50 flex flex-col sidebar ${
           isSidebarOpen ? "w-64" : "w-16"
         }`}
       >
-        <SidebarContent>
-          <SidebarHeader>
-            <div className="flex items-center justify-between px-4 py-2">
-              {isSidebarOpen && (
-                <div className="flex items-center space-x-2">
-                  <span className="font-semibold text-lg text-green-700">
-                    Wargem
-                  </span>
-                </div>
+        {/* Sidebar Header */}
+        <SidebarHeader>
+          <div className="flex items-center justify-between px-4 py-2">
+            {isSidebarOpen && (
+              <span className="font-semibold text-lg text-green-700">Wargem</span>
+            )}
+            <button
+              onClick={toggleSidebar}
+              className="p-2 rounded-md hover:bg-gray-100 focus:outline-none"
+            >
+              {isSidebarOpen ? (
+                <ChevronLeft className="w-5 h-5" />
+              ) : (
+                <ChevronRight className="w-5 h-5" />
               )}
-              <button
-                onClick={toggleSidebar}
-                className="p-2 rounded-md hover:bg-gray-100 focus:outline-none"
-              >
-                {isSidebarOpen ? (
-                  <ChevronLeft className="w-5 h-5" />
-                ) : (
-                  <ChevronRight className="w-5 h-5" />
-                )}
-              </button>
-            </div>
-          </SidebarHeader>
+            </button>
+          </div>
+        </SidebarHeader>
 
+        {/* Sidebar Content */}
+        <SidebarContent>
           <SidebarGroup>
-            <div className="space-y-1">
+            {menuItems.map(({ label, icon: Icon, path }) => (
               <div
+                key={label}
                 className={`flex items-center p-2 rounded-md text-sm font-medium cursor-pointer ${
-                  isActive("/admin/Dashboard")
-                    ? "bg-green-100 text-green-700"
-                    : "hover:bg-gray-100"
+                  isActive(path) ? "bg-green-100 text-green-700" : "hover:bg-gray-100"
                 }`}
-                onClick={() => router.push("/admin/Dashboard")}
+                onClick={() => router.push(path)}
               >
-                <Home className="w-5 h-5 flex-shrink-0" />
-                {isSidebarOpen && <span className="ml-3">Dashboard</span>}
+                <Icon className="w-5 h-5 flex-shrink-0" />
+                {isSidebarOpen && <span className="ml-3">{label}</span>}
               </div>
-              <div
-                className={`flex items-center p-2 rounded-md text-sm font-medium cursor-pointer ${
-                  isActive("/admin/Pemasukan")
-                    ? "bg-green-100 text-green-700"
-                    : "hover:bg-gray-100"
-                }`}
-                onClick={() => router.push("/admin/Pemasukan")}
-              >
-                <PieChart className="w-5 h-5 flex-shrink-0" />
-                {isSidebarOpen && <span className="ml-3">Pemasukan</span>}
-              </div>
-              <div
-                className={`flex items-center p-2 rounded-md text-sm font-medium cursor-pointer ${
-                  isActive("/admin/orders")
-                    ? "bg-green-100 text-green-700"
-                    : "hover:bg-gray-100"
-                }`}
-                onClick={() => router.push("/admin/orders")}
-              >
-                <List className="w-5 h-5 flex-shrink-0" />
-                {isSidebarOpen && <span className="ml-3">Pesanan</span>}
-              </div>
-              <div
-                className={`flex items-center p-2 rounded-md text-sm font-medium cursor-pointer ${
-                  isActive("/admin/HalamanProduk")
-                    ? "bg-green-100 text-green-700"
-                    : "hover:bg-gray-100"
-                }`}
-                onClick={() => router.push("/admin/HalamanProduk")}
-              >
-                <ShoppingBag className="w-5 h-5 flex-shrink-0" />
-                {isSidebarOpen && <span className="ml-3">Produk</span>}
-              </div>
-              <div
-                className={`flex items-center p-2 rounded-md text-sm font-medium cursor-pointer ${
-                  isActive("/admin/Pengaturan")
-                    ? "bg-green-100 text-green-700"
-                    : "hover:bg-gray-100"
-                }`}
-                onClick={() => router.push("/admin/Pengaturan")}
-              >
-                <Settings className="w-5 h-5 flex-shrink-0" />
-                {isSidebarOpen && <span className="ml-3">Pengaturan</span>}
-              </div>
-            </div>
+            ))}
           </SidebarGroup>
         </SidebarContent>
 
         {/* Sidebar Footer */}
         <SidebarFooter className="mt-auto">
-          <div
-            className={`flex items-center p-2 text-sm font-medium cursor-pointer ${
-              isActive("/admin/Logout")
-                ? "bg-green-100 text-green-700"
-                : "hover:bg-gray-100"
-            }`}
-            onClick={() => router.push("/admin/Logout")}
-          >
-            <LogOut className="w-5 h-5 flex-shrink-0" />
-            {isSidebarOpen && <span className="ml-3">Keluar</span>}
-          </div>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <SidebarMenuButton>
+                    <User2 />
+                    {isSidebarOpen && <span className="ml-3">Admin</span>}
+                    <ChevronUp className="ml-auto" />
+                  </SidebarMenuButton>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  side="top"
+                  className="w-[--radix-popper-anchor-width]"
+                >
+                  <DropdownMenuItem onClick={handleAccountClick}>
+                    <span>Account</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleAddAdminClick}>
+                    <span>Add Admin</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleLogoutClick}>
+                    <span>Logout</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </SidebarMenuItem>
+          </SidebarMenu>
         </SidebarFooter>
       </div>
     </div>

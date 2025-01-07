@@ -16,6 +16,8 @@ import { Button } from "@/components/ui/button";
 import useAdminLogin from "../../hooks/useAdminLogin"; // Import useAdminLogin hook
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"; // ShadCN alert component
 import { AlertCircle, CheckCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
+
 
 const schema = z.object({
   username: z.string().min(2, "Username must be at least 2 characters long"),
@@ -23,6 +25,7 @@ const schema = z.object({
 });
 
 export default function FormAdmin() {
+  const router = useRouter();
   const methods = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -42,6 +45,7 @@ export default function FormAdmin() {
       console.log("Admin logged in:", result.token);
       if (result != null) {
         const successMessage = "Login successful. Redirecting...";
+        router.push("/admin/Dashboard"); // Redirect to the dashboard page
         setIsSuccess(true); // Set success message
         setIsSuccess(successMessage); // Set success message
       }

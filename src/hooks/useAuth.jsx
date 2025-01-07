@@ -12,6 +12,7 @@ export function useAuth() {
 
   useEffect(() => {
     const adminToken = getCookie("adminAuthToken");
+    console.log("Admin Token Order:", adminToken);
     if (!adminToken) {
       // Tampilkan dialog dulu, setelah konfirmasi baru redirect
       showDialog(

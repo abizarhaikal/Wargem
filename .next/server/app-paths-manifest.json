@@ -1,9 +1,7 @@
 {
+  "/admin/HalamanProduk/ProdukBaru/page": "app/admin/HalamanProduk/ProdukBaru/page.js",
+  "/admin/HalamanProduk/UpdateProduk/[id]/page": "app/admin/HalamanProduk/UpdateProduk/[id]/page.js",
   "/admin/Dashboard/page": "app/admin/Dashboard/page.js",
-  "/page": "app/page.js",
-  "/history/page": "app/history/page.js",
-  "/menu/makanan/page": "app/menu/makanan/page.js",
-  "/menu/minuman/page": "app/menu/minuman/page.js",
-  "/admin/Pemasukan/page": "app/admin/Pemasukan/page.js",
-  "/admin/orders/page": "app/admin/orders/page.js"
+  "/admin/Pengaturan/page": "app/admin/Pengaturan/page.js",
+  "/admin/Account/page": "app/admin/Account/page.js"
 }

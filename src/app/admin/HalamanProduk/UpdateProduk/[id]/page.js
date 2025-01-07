@@ -9,6 +9,7 @@ import { ProductForm } from "@/components/ui/admin/ProdukBaru/ProductForm";
 import { CategorySelector } from "@/components/ui/admin/ProdukBaru/CategorySelector";
 import PocketBase from "pocketbase";
 import { checkDuplicateProduct } from "@/hooks/useProduct";
+import AlertDialogCustom from "@/components/ui/alertDialogCustom";
 
 const pb = new PocketBase("https://exciting-spell.pockethost.io");
 
@@ -187,6 +188,7 @@ export default function UpdateProdukPage({ params }) {
           )}
         </div>
       </div>
+      <AlertDialogCustom/>
     </div>
   );
 }

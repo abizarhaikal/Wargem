@@ -8,6 +8,8 @@ import { ImageUpload } from "@/components/ui/admin/ProdukBaru/ImageUpload";
 import { ProductForm } from "@/components/ui/admin/ProdukBaru/ProductForm";
 import { CategorySelector } from "@/components/ui/admin/ProdukBaru/CategorySelector";
 import { createProduct, checkDuplicateProduct } from "@/hooks/useProduct";
+import { AlertDialog } from "@radix-ui/react-alert-dialog";
+import AlertDialogCustom from "@/components/ui/alertDialogCustom";
 
 export default function ProdukPage() {
   const [formData, setFormData] = useState({
@@ -107,6 +109,7 @@ export default function ProdukPage() {
           )}
         </div>
       </div>
+      <AlertDialogCustom />
     </div>
   );
 }

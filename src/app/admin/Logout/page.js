@@ -2,6 +2,7 @@
 import React from "react";
 import CustomSidebar from "@/components/ui/sidebaradmin";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import AlertDialogCustom from "@/components/ui/alertDialogCustom";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
           <h1 className="text-2xl font-bold mb-4">Logout</h1>
         </main>
       </div>
+      <AlertDialogCustom/>
     </SidebarProvider>
   );
 }
