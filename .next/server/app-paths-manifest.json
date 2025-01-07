@@ -1,7 +1,5 @@
 {
-  "/admin/HalamanProduk/ProdukBaru/page": "app/admin/HalamanProduk/ProdukBaru/page.js",
-  "/admin/HalamanProduk/UpdateProduk/[id]/page": "app/admin/HalamanProduk/UpdateProduk/[id]/page.js",
-  "/admin/Dashboard/page": "app/admin/Dashboard/page.js",
-  "/admin/Pengaturan/page": "app/admin/Pengaturan/page.js",
-  "/admin/Account/page": "app/admin/Account/page.js"
+  "/menu/makanan/page": "app/menu/makanan/page.js",
+  "/loginsignup/login/page": "app/loginsignup/login/page.js",
+  "/menu/page": "app/menu/page.js"
 }

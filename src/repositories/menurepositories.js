@@ -109,9 +109,12 @@ export const loginUser = async (username, password) => {
       .collection("users")
       .authWithPassword(username, password);
 
-    console.log("Authentication successful");
-    console.log("Auth Token: " + pb.authStore.token);
-    console.log("User ID: ", pb.authStore.model.id);
+    // Set the user authentication token as a cookie
+    setCookie("userAuthToken", authData.token, {
+      maxAge: 60 * 60 * 24, // 1 day
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
 
     return authData;
   } catch (err) {
