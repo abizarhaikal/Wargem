@@ -1,4 +1,4 @@
-// File: E:\RPPL-KELOMPOK2\wargem-project\src\app\menu\makanan\page.jsx
+// File: C:\Users\timot\Documents\Matkul\SMT 7\Wargem\Wargem\src\app\menu\makanan\page.jsx
 import * as entry from '../../../../../src/app/menu/makanan/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
