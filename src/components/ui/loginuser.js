@@ -5,7 +5,7 @@ import { FormProvider, useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Image from "next/image";
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/navigation";
 import {
   FormItem,
   FormLabel,
@@ -33,7 +33,7 @@ export default function UserLoginForm() {
     },
   });
 
-  const {login, isLoading, error, userData} = useUserLogin();
+  const { login, isLoading, error, userData } = useUserLogin();
   const [formError, setFormError] = useState(null); // Local state for form error
   const [isSuccess, setIsSuccess] = useState(false); // Local state for success message
   const router = useRouter();
@@ -48,10 +48,9 @@ export default function UserLoginForm() {
         const successMessage = "Login successful. Redirecting...";
         setIsSuccess(true); // Set success message
         setIsSuccess(successMessage);
-        router.push("/menu");
-      } 
+        router.push("/");
+      }
       setFormError(null);
-
     } catch (err) {
       console.error("Login error:", err);
       setIsSuccess(false); // Reset success message
@@ -101,9 +100,9 @@ export default function UserLoginForm() {
           )}
           {error && (
             <Alert variant="destructive" className="mb-4">
-                <AlertCircle className="h-4 w-4"/>
-                <AlertTitle>Error</AlertTitle>
-                <AlertDescription>{error}</AlertDescription>
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>Error</AlertTitle>
+              <AlertDescription>{error}</AlertDescription>
             </Alert>
           )}
 
@@ -152,10 +151,13 @@ export default function UserLoginForm() {
           {/* Signup link at the bottom */}
           <p className="mt-4 text-center text-sm text-gray-600">
             Don&apos;t have an account?{" "}
-            <a href="/loginsignup/signup" className="text-blue-500 hover:underline">
+            <a
+              href="/loginsignup/signup"
+              className="text-blue-500 hover:underline"
+            >
               Sign up here
             </a>
-           </p>
+          </p>
         </div>
       </div>
     </div>

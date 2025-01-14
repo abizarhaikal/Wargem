@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Coffee, Cookie, Utensils } from "lucide-react";
 
 export function CategorySelector({ value, onChange }) {
   const [selectedCategory, setSelectedCategory] = useState(value);
@@ -20,21 +21,21 @@ export function CategorySelector({ value, onChange }) {
         <div className="flex items-center space-x-4">
           <RadioGroupItem value="makanan" id="makanan" />
           <label htmlFor="makanan" className="flex items-center space-x-2">
-            <span className="bg-green-100 p-2 rounded-md">[Icon Makanan]</span>
+            <span className="bg-green-100 p-2 rounded-md"><Utensils size={15}/></span>
             <span>Makanan</span>
           </label>
         </div>
         <div className="flex items-center space-x-4">
           <RadioGroupItem value="minuman" id="minuman" />
           <label htmlFor="minuman" className="flex items-center space-x-2">
-            <span className="bg-blue-100 p-2 rounded-md">[Icon Minuman]</span>
+            <span className="bg-blue-100 p-2 rounded-md"><Coffee size={15}/></span>
             <span>Minuman</span>
           </label>
         </div>
         <div className="flex items-center space-x-4">
           <RadioGroupItem value="snack" id="snack" />
           <label htmlFor="snack" className="flex items-center space-x-2">
-            <span className="bg-pink-100 p-2 rounded-md">[Icon Snack]</span>
+            <span className="bg-pink-100 p-2 rounded-md"><Cookie size={15}/></span>
             <span>Snack</span>
           </label>
         </div>

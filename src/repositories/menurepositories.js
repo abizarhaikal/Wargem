@@ -57,6 +57,48 @@ export const fetchOrdersItems = async () => {
     throw new Error("Failed to fetch grouped order items. Please try again.");
   }
 };
+
+export const fetchDataAdmin = async (adminId) => {
+  try {
+    pb.autoCancellation(false);
+    const record = await pb.collection("admin").getOne(adminId);
+    return record;
+  } catch (err) {
+    console.error("Error fetching admin data:", err);
+    throw new Error("Failed to fetch admin data. Please try again.");
+  }
+};
+
+export const addAdmin = async (username, email, password) => {
+  try {
+    const data = {
+      username: username,
+      email: email,
+      emailVisibility: true,
+      password: password,
+      passwordConfirm: password,
+    };
+    console.log("Add Admin", data);
+    const admin = await pb.collection("admin").create(data);
+    console.log("User registered:", admin);
+
+    return admin;
+  } catch (err) {
+    console.error("Error registering user:", err?.response);
+    throw err;
+  }
+};
+
+export const updateAdminProfile = async (adminId, data) => {
+  try {
+    pb.autoCancellation(false);
+    const response = await pb.collection("admin").update(adminId, data);
+    return response;
+  } catch (err) {
+    console.error("Error updating admin profile:", err);
+    throw new Error("Failed to update admin profile. Please try again.");
+  }
+};
 export const menuCategories = async (menuCategory) => {
   try {
     // Ambil semua data dari koleksi 'foods' dengan filter kategori tertentu
@@ -95,6 +137,8 @@ export const loginAdmin = async (username, password) => {
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
     });
+
+    localStorage.setItem("adminUserId", authData.record.id);
 
     return authData;
   } catch (err) {

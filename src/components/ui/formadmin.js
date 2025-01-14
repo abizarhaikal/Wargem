@@ -18,7 +18,6 @@ import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"; // 
 import { AlertCircle, CheckCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-
 const schema = z.object({
   username: z.string().min(2, "Username must be at least 2 characters long"),
   password: z.string().min(6, "Password must be at least 6 characters long"),
@@ -45,6 +44,7 @@ export default function FormAdmin() {
       console.log("Admin logged in:", result.token);
       if (result != null) {
         const successMessage = "Login successful. Redirecting...";
+        await new Promise((resolve) => setTimeout(resolve, 2000)); // Add a 2-second delay
         router.push("/admin/Dashboard"); // Redirect to the dashboard page
         setIsSuccess(true); // Set success message
         setIsSuccess(successMessage); // Set success message

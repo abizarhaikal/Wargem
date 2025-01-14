@@ -1,66 +1,19 @@
-"use client";
+import EditProfile from "@/components/ui/editProfile";
+import React from "react";
+import SiedebarAdmin from "@/components/ui/sidebaradmin";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { Toaster } from "sonner";
 
-import React, { useState } from "react";
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
-import { Form, FormItem } from "@/components/ui/Form";
-
-const EditProfile = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic here
-    console.log("Form data submitted:", formData);
-  };
-
+export default function Page() {
   return (
-    <div className="edit-profile">
-      <h2>Edit Profile</h2>
-      <Form onSubmit={handleSubmit}>
-        <FormItem label="Username">
-          <Input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </FormItem>
-        <FormItem label="Email">
-          <Input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </FormItem>
-        <FormItem label="Password">
-          <Input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </FormItem>
-        <Button type="submit">Save Changes</Button>
-      </Form>
-    </div>
+    <React.Fragment>
+      <SidebarProvider className="flex h-screen w-full bg-gray-50">
+        <SiedebarAdmin />
+        <div className="flex flex-1 justify-center items-center">
+          <EditProfile />
+          <Toaster position="bottom-right" />
+        </div>
+      </SidebarProvider>
+    </React.Fragment>
   );
-};
-
-export default EditProfile;
+}
