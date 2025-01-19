@@ -160,6 +160,7 @@ export const loginUser = async (username, password) => {
       sameSite: "strict",
     });
 
+    localStorage.setItem("userId", authData.record.id);
     return authData;
   } catch (err) {
     console.error("Error logging in user:", err);

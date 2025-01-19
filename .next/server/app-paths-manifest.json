@@ -1,10 +1,6 @@
 {
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/admin/HalamanProduk/page": "app/admin/HalamanProduk/page.js",
-  "/admin/login/page": "app/admin/login/page.js",
-  "/admin/Account/page": "app/admin/Account/page.js",
-  "/admin/orders/page": "app/admin/orders/page.js",
-  "/admin/AddAdmin/page": "app/admin/AddAdmin/page.js",
-  "/admin/Dashboard/page": "app/admin/Dashboard/page.js"
+  "/menu/page": "app/menu/page.js",
+  "/page": "app/page.js",
+  "/loginsignup/login/page": "app/loginsignup/login/page.js",
+  "/history/page": "app/history/page.js"
 }
