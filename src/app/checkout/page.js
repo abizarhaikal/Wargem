@@ -7,8 +7,9 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 export default function CheckoutPage() {
-  const { cartItems, updateItemQuantity, totalPrice } = useCart();
+  const { cartItems, updateItemQuantity, removeFromCart, totalPrice } = useCart();
   const [tableNumber, setTableNumber] = useState("");
+  const [tableNumberError, setTableNumberError] = useState(""); // Tambahkan state untuk pesan kesalahan
   const router = useRouter();
 
   const handleQuantityChange = (itemId, type) => {
@@ -24,16 +25,35 @@ export default function CheckoutPage() {
 
   const handleTableNumberChange = (e) => {
     const value = e.target.value;
-    if (value === "" || Number(value) >= 0) {
-      setTableNumber(value);
+    setTableNumber(value);
+
+    // Validasi nomor meja langsung
+    if (value === "" || parseInt(value) <= 0) {
+      setTableNumberError("Nomor meja harus lebih besar dari 0.");
+    } else {
+      setTableNumberError(""); // Reset pesan kesalahan
     }
   };
 
   const handleConfirmOrder = () => {
-    if (tableNumber) {
-      alert(`Pesanan Anda dengan nomor meja ${tableNumber} telah diterima!`);
+    if (!tableNumber || parseInt(tableNumber) <= 0) {
+      setTableNumberError("Nomor meja harus valid sebelum konfirmasi.");
+      return;
     }
+
+    // Pesan konfirmasi
+    alert(`Pesanan Anda dengan nomor meja ${tableNumber} telah diterima!`);
   };
+
+  const handleDeleteItem = (itemId) => {
+    removeFromCart(itemId);
+  };
+
+  // Menghitung total harga pesanan jika totalPrice tidak valid
+  const totalOrderPrice = cartItems.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
 
   return (
     <div
@@ -55,7 +75,7 @@ export default function CheckoutPage() {
         Checkout
       </h1>
 
-      {/* Kotak Input Nomor Meja */}
+      {/* Input Nomor Meja */}
       <div
         className="mb-4 p-4 bg-white rounded-lg shadow-md"
         style={{ boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}
@@ -73,8 +93,13 @@ export default function CheckoutPage() {
           onChange={handleTableNumberChange}
           placeholder="Masukkan nomor meja"
           min="0"
-          className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
+          className={`mt-1 block w-full p-2 border ${
+            tableNumberError ? "border-red-500" : "border-gray-300"
+          } rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm`}
         />
+        {tableNumberError && (
+          <p className="text-sm text-red-500 mt-2">{tableNumberError}</p>
+        )}
       </div>
 
       {cartItems.length === 0 ? (
@@ -117,6 +142,12 @@ export default function CheckoutPage() {
                 <p className="text-lg font-semibold">
                   Rp {item.price * item.quantity}
                 </p>
+                <button
+                  className="ml-4 text-red-500 hover:text-red-700"
+                  onClick={() => handleDeleteItem(item.id)}
+                >
+                  Hapus
+                </button>
               </div>
             ))}
 
@@ -124,6 +155,7 @@ export default function CheckoutPage() {
             <div style={{ height: "100px" }}></div>
           </div>
 
+          {/* Footer */}
           <div
             className="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-4 border-t border-gray-300"
             style={{ backgroundColor: "#FDF2F8" }}
@@ -134,7 +166,7 @@ export default function CheckoutPage() {
                 {cartItems.reduce((acc, item) => acc + item.quantity, 0)} item
               </div>
               <div className="text-lg font-semibold text-right">
-                Rp {totalPrice.toLocaleString("id-ID")}
+                Rp {totalOrderPrice.toLocaleString("id-ID")}
               </div>
             </div>
             <div className="mt-4">
@@ -142,10 +174,12 @@ export default function CheckoutPage() {
                 variant="primary"
                 size="lg"
                 className={`py-2 px-6 rounded-md text-white ${
-                  !tableNumber ? "bg-gray-400 cursor-not-allowed" : "bg-red-500"
+                  !tableNumber || tableNumberError
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-red-500"
                 } w-full`}
                 onClick={handleConfirmOrder}
-                disabled={!tableNumber}
+                disabled={!tableNumber || tableNumberError}
               >
                 Konfirmasi Pesanan
               </Button>

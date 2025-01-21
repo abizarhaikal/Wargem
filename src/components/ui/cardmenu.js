@@ -2,20 +2,19 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation"; // Mengimpor useRouter
+import { usePathname, useRouter } from "next/navigation";  // Pastikan mengimpor useRouter
 import { useMenuItems } from "@/hooks/useMenuItems";
 import { useMenuCategories } from "@/hooks/use-menu-category";
 import { Button } from "./button";
-import { useCart } from "@/context/CardContext"; // Pastikan menggunakan useCart dengan benar
+import { useCart } from "@/context/CardContext";
 
 export default function CardMenu() {
-  // Mendapatkan path dari URL
+  const router = useRouter();  // Deklarasikan router
   const pathname = usePathname();
   const pathSegments = pathname.split("/");
-  const isRoot = pathname === "/" || pathname === "/menu"; // Menentukan apakah halaman root
-  const category = pathSegments.length > 2 ? pathSegments[2] : null; // Menentukan kategori berdasarkan URL
+  const isRoot = pathname === "/" || pathname === "/menu";
+  const category = pathSegments.length > 2 ? pathSegments[2] : null;
 
-  // Mengambil menu items berdasarkan kategori atau semua item
   const { menuItems: allMenuItems, loading: allLoading, error: allError } = useMenuItems();
   const { menuItems: categoryItems, loading: categoryLoading, error: categoryError } = useMenuCategories(category);
 
@@ -23,35 +22,17 @@ export default function CardMenu() {
   const loading = isRoot ? allLoading : categoryLoading;
   const error = isRoot ? allError : categoryError;
 
-  // Mengambil cart context dengan menggunakan hook useCart
-  const { cartItems, addToCart, removeFromCart } = useCart();
+  const { addToCart, removeFromCart } = useCart();
 
-  const [counters, setCounters] = useState([]); // Menghitung jumlah item yang ditambahkan
-  const [totalItems, setTotalItems] = useState(0); // Menghitung total item
-  const [totalPrice, setTotalPrice] = useState(0); // Menghitung total harga
+  const [counters, setCounters] = useState([]);
 
-  const router = useRouter(); // Inisialisasi useRouter untuk navigasi
-
-  // Menangani perubahan jumlah item dan harga total saat menuItems atau counters berubah
   useEffect(() => {
-    if (menuItems && menuItems.length > 0 && counters.length === 0) {
-      setCounters(new Array(menuItems.length).fill(0)); // Set initial counter untuk setiap item
+    if (menuItems && menuItems.length > 0) {
+      const initialCounters = menuItems.map(() => 0);
+      setCounters(initialCounters);
     }
   }, [menuItems]);
 
-  // Menghitung total item dan total harga setiap kali counters atau menuItems berubah
-  useEffect(() => {
-    const newTotalItems = counters.reduce((acc, count) => acc + count, 0);
-    setTotalItems(newTotalItems);
-
-    const newTotalPrice = counters.reduce(
-      (acc, count, index) => acc + (menuItems[index]?.price || 0) * count,
-      0
-    );
-    setTotalPrice(newTotalPrice);
-  }, [counters, menuItems]);
-
-  // Menampilkan loading atau error jika terjadi masalah dengan data menu
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[50vh]">
@@ -68,7 +49,6 @@ export default function CardMenu() {
     );
   }
 
-  // Menampilkan pesan jika tidak ada item di menu
   if (!menuItems || menuItems.length === 0) {
     return (
       <div className="flex justify-center items-center min-h-[50vh]">
@@ -81,37 +61,31 @@ export default function CardMenu() {
     );
   }
 
-  // Fungsi untuk menambah item ke keranjang
   const increment = (index) => {
-    const newCounters = [...counters];
-    newCounters[index] += 1;
-    setCounters(newCounters);
-    addToCart(menuItems[index]); // Menambahkan ke keranjang
-
-    // Mengupdate total harga dan total item
-    setTotalPrice(totalPrice + (menuItems[index]?.price || 0));
-    setTotalItems(totalItems + 1);
+    const updatedCounters = [...counters];
+    updatedCounters[index] += 1;
+    setCounters(updatedCounters);
+    addToCart(menuItems[index]);
   };
 
-  // Fungsi untuk mengurangi item dari keranjang
   const decrement = (index) => {
-    const newCounters = [...counters];
-    if (newCounters[index] > 0) {
-      newCounters[index] -= 1;
-      setCounters(newCounters);
-      removeFromCart(menuItems[index].id); // Menghapus dari keranjang
-
-      // Mengupdate total harga dan total item
-      setTotalPrice(totalPrice - (menuItems[index]?.price || 0));
-      setTotalItems(totalItems - 1);
+    if (counters[index] > 0) {
+      const updatedCounters = [...counters];
+      updatedCounters[index] -= 1;
+      setCounters(updatedCounters);
+      removeFromCart(menuItems[index].id);
     }
   };
 
-  // Fungsi untuk menangani checkout
+  const totalItems = counters.reduce((sum, count) => sum + count, 0);
+  const totalPrice = counters.reduce(
+    (sum, count, index) => sum + count * (menuItems[index]?.price || 0),
+    0
+  );
+
   const handleCheckout = () => {
     if (totalItems > 0) {
-      // Navigasi ke halaman checkout jika ada item di keranjang
-      router.push("/checkout");
+      router.push("/checkout"); // Navigasi ke halaman checkout
     } else {
       alert("Your cart is empty!");
     }
@@ -119,7 +93,6 @@ export default function CardMenu() {
 
   return (
     <div className="relative">
-      {/* Daftar item menu */}
       <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-4 p-4 pb-32 mt-20 md:mt-0">
         {menuItems.map((item, index) => (
           <div
@@ -165,20 +138,19 @@ export default function CardMenu() {
         ))}
       </div>
 
-      {/* Menampilkan total harga dan tombol checkout jika ada item dalam keranjang */}
       {totalItems > 0 && (
         <div
           className="fixed bottom-4 left-4 right-4 md:left-1/4 md:right-1/4 flex justify-between items-center bg-secondary py-3 px-5 rounded-lg shadow-lg"
           style={{
-            backgroundColor: "#FDF2F8", // Secondary warna latar belakang
-            color: "black", // Teks tetap hitam
+            backgroundColor: "#FDF2F8",
+            color: "black",
           }}
         >
           <div>
             <p
               className="text-lg font-semibold"
               style={{
-                color: "#EF4444", // Primary untuk heading total
+                color: "#EF4444",
               }}
             >
               Total
@@ -191,10 +163,10 @@ export default function CardMenu() {
           <Button
             className="bg-primary py-2 px-4 rounded-lg hover:opacity-90"
             style={{
-              backgroundColor: "#EF4444", // Primary warna tombol
+              backgroundColor: "#EF4444",
               color: "white",
             }}
-            onClick={handleCheckout} // Mengarahkan ke halaman checkout
+            onClick={handleCheckout}
           >
             CHECK OUT
           </Button>
