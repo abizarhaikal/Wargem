@@ -19,12 +19,26 @@ import {
   ShoppingBag,
   History,
 } from "lucide-react";
+import { PaymentButton } from "./PaymentButton";
 
 export default function MySidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activePath, setActivePath] = useState("/");  
   const pathname = usePathname();
   const router = useRouter();
+  const paymentRequest = {
+    amount: 50000,
+    customerName: 'John Doe',
+    customerEmail: 'john@example.com',
+    itemDetails: [
+      {
+        id: 'item1',
+        name: 'Product Name',
+        price: 50000,
+        quantity: 1,
+      }
+    ]
+  };
 
   const navigation = [
     {
@@ -115,6 +129,7 @@ export default function MySidebar() {
             </Button>
           </div>
         </div>
+        <PaymentButton {...paymentRequest}/>
       </aside>
 
       {/* Header & Navigasi Mobile */}
