@@ -22,7 +22,7 @@ import {
 
 export default function MySidebar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [activePath, setActivePath] = useState("/");
+  const [activePath, setActivePath] = useState("/");  
   const pathname = usePathname();
   const router = useRouter();
 
@@ -66,10 +66,10 @@ export default function MySidebar() {
 
   return (
     <div className="flex">
-      {/* Desktop Sidebar */}
+      {/* Sidebar Desktop */}
       <aside className="hidden md:flex w-64 flex-col border-r bg-red-500 min-h-screen md:bg-white">
         <div className="flex flex-col flex-1 min-h-0">
-          {/* Header Image Placeholder */}
+          {/* Placeholder Gambar Header */}
           <div className="p-4">
             <div className="w-full h-full bg-white rounded-lg shadow-sm">
               <Image
@@ -81,7 +81,7 @@ export default function MySidebar() {
             </div>
           </div>
 
-          {/* Navigation */}
+          {/* Navigasi */}
           <div className="flex-1 flex flex-col px-3 py-4">
             <h3 className="px-3 text-sm font-semibold text-black mb-2">
               Kategori
@@ -117,7 +117,7 @@ export default function MySidebar() {
         </div>
       </aside>
 
-      {/* Mobile Header & Navigation */}
+      {/* Header & Navigasi Mobile */}
       <div className="md:hidden fixed inset-x-0 top-0 z-50">
         <div className="h-16 bg-red-500 border-b border-red-400 flex items-center justify-center">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -132,9 +132,9 @@ export default function MySidebar() {
             </SheetTrigger>
 
             <SheetContent side="left" className="w-[280px] p-0 bg-red-500">
-              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+              <SheetTitle className="sr-only">Menu Navigasi</SheetTitle>
               <div className="flex flex-col h-full">
-                {/* Mobile Header Image */}
+                {/* Gambar Header Mobile */}
                 <div className="p-4">
                   <div className="w-full h-32 bg-white rounded-lg shadow-sm">
                     <Image
@@ -146,7 +146,7 @@ export default function MySidebar() {
                   </div>
                 </div>
 
-                {/* Mobile Navigation */}
+                {/* Navigasi Mobile */}
                 <div className="flex-1 px-3 py-4">
                   <h3 className="px-3 text-sm font-semibold text-white mb-2">
                     Kategori
@@ -155,13 +155,9 @@ export default function MySidebar() {
                     {navigation.map((item) => (
                       <Button
                         key={item.path}
-                        variant={
-                          activePath === item.path ? "secondary" : "ghost"
-                        }
+                        variant={activePath === item.path ? "secondary" : "ghost"}
                         className={`w-full justify-start gap-2 text-white hover:bg-red-400 ${
-                          activePath === item.path
-                            ? "bg-red-600"
-                            : "hover:bg-red-400"
+                          activePath === item.path ? "bg-red-600" : "hover:bg-red-400"
                         }`}
                         onClick={() => handleNavigate(item.path)}
                       >
@@ -172,7 +168,7 @@ export default function MySidebar() {
                   </nav>
                 </div>
 
-                {/* Mobile Footer */}
+                {/* Footer Mobile */}
                 <div className="p-4 border-t border-red-400">
                   <Button
                     variant="outline"
@@ -192,16 +188,6 @@ export default function MySidebar() {
           </h1>
         </div>
       </div>
-
-      {/* Mobile Shopping Cart Button */}
-      <Button
-        variant="default"
-        size="icon"
-        className="md:hidden fixed right-4 bottom-4 rounded-full shadow-lg z-50 bg-red-500 hover:bg-red-600"
-        onClick={() => alert("Keranjang Belanja")}
-      >
-        <ShoppingBag size={24} className="text-white" />
-      </Button>
     </div>
   );
 }

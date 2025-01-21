@@ -1,5 +1,9 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
+import { CartProvider } from "@/context/CardContext"; // CartProvider sudah ada
+// Misalkan Anda juga menambahkan provider untuk tema atau pengguna
+import { ThemeProvider } from "@/context/ThemeContext";  // Contoh ThemeContext
+import { UserProvider } from "@/context/UserContext";  // Contoh UserContext
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,7 +27,14 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        {/* Membungkus children dengan beberapa provider */}
+        <CartProvider>
+          <ThemeProvider>  {/* Menambahkan ThemeProvider */}
+            <UserProvider> {/* Menambahkan UserProvider */}
+              {children}
+            </UserProvider>
+          </ThemeProvider>
+        </CartProvider>
       </body>
     </html>
   );
