@@ -10,17 +10,19 @@ export const allowedMethods = ['POST'];
 const MIDTRANS_CONFIG = {
   serverKey: process.env.SERVER_KEY || '',
   clientKey: process.env.CLIENT_KEY || '',
-  isProduction: 'false'
+  isProduction: process.env.NODE_ENV === 'production' // Use boolean
 };
 
 export async function POST(request) {
   try {
     const paymentRequest = await request.json();
-    console.log(MIDTRANS_CONFIG.serverKey)
+    console.log('Server Key:', MIDTRANS_CONFIG.serverKey);
+    // Encode order data into base64
     
+    const orderId = Buffer.from(JSON.stringify(paymentRequest.orderId)).toString('base64');
     const payload = {
       transaction_details: {
-        order_id: paymentRequest.orderId,
+        order_id: orderId,
         gross_amount: paymentRequest.amount,
       },
       customer_details: {
@@ -28,8 +30,13 @@ export async function POST(request) {
         email: paymentRequest.customerEmail,
       },
       item_details: paymentRequest.itemDetails,
+      callbacks: {
+        finish: process.env.NEXT_PUBLIC_BASE_URL,  // Redirect back to homepage after payment
+        error: `${process.env.NEXT_PUBLIC_BASE_URL}/error`,
+        pending: `${process.env.NEXT_PUBLIC_BASE_URL}/pending`
+      }
     };
-
+    
     const auth = Buffer.from(MIDTRANS_CONFIG.serverKey + ':').toString('base64');
     const baseUrl = MIDTRANS_CONFIG.isProduction
       ? 'https://app.midtrans.com/snap/v1'
@@ -47,9 +54,9 @@ export async function POST(request) {
       token: response.data.token,
     });
   } catch (error) {
-    console.error('Payment creation error:', error);
+    console.error('Payment creation error:', error.response?.data || error.message);
     return NextResponse.json(
-      { message: 'Error creating payment' },
+      { message: 'Error creating payment', details: error.response?.data },
       { status: 500 }
     );
   }

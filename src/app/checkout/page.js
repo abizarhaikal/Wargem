@@ -1,15 +1,17 @@
 "use client";
-
+import { generateOrderId } from "@/utils/generateorder";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CardContext";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { PaymentButton } from "@/components/ui/PaymentButton";
 
 export default function CheckoutPage() {
   const { cartItems, updateItemQuantity, removeFromCart, totalPrice } = useCart();
   const [tableNumber, setTableNumber] = useState("");
   const [tableNumberError, setTableNumberError] = useState(""); // Tambahkan state untuk pesan kesalahan
+  const [isProcessing, setIsProcessing] = useState(false);
   const router = useRouter();
 
   const handleQuantityChange = (itemId, type) => {
@@ -35,14 +37,63 @@ export default function CheckoutPage() {
     }
   };
 
-  const handleConfirmOrder = () => {
+  const handleConfirmOrder = async () => {
     if (!tableNumber || parseInt(tableNumber) <= 0) {
       setTableNumberError("Nomor meja harus valid sebelum konfirmasi.");
       return;
     }
 
-    // Pesan konfirmasi
-    alert(`Pesanan Anda dengan nomor meja ${tableNumber} telah diterima!`);
+    try {
+      setIsProcessing(true);
+
+      // Calculate total amount
+      const totalAmount = cartItems.reduce(
+        (acc, item) => acc + item.price * item.quantity,
+        0
+      );
+
+      // Prepare item details for Midtrans
+      const itemDetails = cartItems.map(item => ({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity
+      }));
+
+      // Create payment request
+      const paymentRequest = {
+        orderId: generateOrderId(), // You'll need to implement this function
+        amount: totalAmount,
+        customerName: `Table ${tableNumber}`, // You might want to add actual customer name input
+        customerEmail: "guest@example.com", // You might want to add email input
+        itemDetails: itemDetails,
+        tableNumber: tableNumber
+      };
+
+      // Call your payment API
+      const response = await fetch('/api/create-payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(paymentRequest),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to create payment');
+      }
+
+      // Redirect to Midtrans payment page
+      window.location.href = data.paymentUrl;
+
+    } catch (error) {
+      console.error('Payment error:', error);
+      alert('Terjadi kesalahan saat memproses pembayaran. Silakan coba lagi.');
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   const handleDeleteItem = (itemId) => {
