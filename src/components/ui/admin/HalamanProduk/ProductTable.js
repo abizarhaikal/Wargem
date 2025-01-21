@@ -25,6 +25,7 @@ export function ProductTable({ products, onUpdate, onDelete }) {
             <TableHead className="px-4 py-2">Nama</TableHead>
             <TableHead className="px-4 py-2">Harga</TableHead>
             <TableHead className="px-4 py-2">Kategori</TableHead>
+            <TableHead className="px-4 py-2">Status</TableHead>
             <TableHead className="px-4 py-2">Waktu Dibuat</TableHead>
             <TableHead className="px-4 py-2">Waktu Diperbarui</TableHead>
             <TableHead className="px-4 py-2">Aksi</TableHead>
@@ -47,6 +48,7 @@ export function ProductTable({ products, onUpdate, onDelete }) {
               <TableCell className="px-4 py-2">{product.name}</TableCell>
               <TableCell className="px-4 py-2">{`Rp${product.price}`}</TableCell>
               <TableCell className="px-4 py-2">{product.category}</TableCell>
+              <TableCell className="px-4 py-2">{product.status}</TableCell>
               <TableCell className="px-4 py-2">{product.created}</TableCell>
               <TableCell className="px-4 py-2">{product.updated}</TableCell>
               <TableCell className="px-4 py-2 flex gap-2">

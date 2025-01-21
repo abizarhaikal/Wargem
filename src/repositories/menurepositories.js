@@ -22,25 +22,28 @@ export const fetchOrdersItems = async () => {
 
     // Group data by order_id
     const groupedOrders = records.items.reduce((acc, item) => {
-      const orderId = item.expand.order_id.id;
-
-      // Jika sudah ada orderId, tambahkan item baru ke dalam grup
+      const orderId = item.expand?.order_id?.id;
+    
+      if (!orderId) {
+        console.warn("Missing order_id for item:", item);
+        return acc; // Abaikan item jika tidak ada order_id
+      }
+    
       if (acc[orderId]) {
         acc[orderId].items.push({
-          menuName: item.expand.menu_id.name || "Unknown",
+          menuName: item.expand?.menu_id?.name || "Unknown",
           quantity: item.quantity,
           totalPrice: item.total_price,
         });
       } else {
-        // Jika belum ada, buat grup baru untuk orderId tersebut
         acc[orderId] = {
           orderId,
-          noTable: item.expand.order_id.no_table,
-          statusOrder: item.expand.order_id.status_order,
-          totalPrice: item.expand.order_id.total_price,
+          noTable: item.expand?.order_id?.no_table || "Unknown",
+          statusOrder: item.expand?.order_id?.status_order || "Unknown",
+          totalPrice: item.expand?.order_id?.total_price || 0,
           items: [
             {
-              menuName: item.expand.menu_id.name || "Unknown",
+              menuName: item.expand?.menu_id?.name || "Unknown",
               quantity: item.quantity,
               totalPrice: item.total_price,
             },
@@ -49,6 +52,7 @@ export const fetchOrdersItems = async () => {
       }
       return acc;
     }, {});
+    
 
     // Ubah hasil ke dalam bentuk array agar lebih mudah digunakan di frontend
     return Object.values(groupedOrders);

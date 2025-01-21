@@ -18,7 +18,7 @@ export default function UpdateProdukPage({ params }) {
     name: "",
     category: "",
     price: 0,
-    stock: 0,
+    status: "",
     image: null,
   });
   const [statusMessage, setStatusMessage] = useState({ type: "", text: "" });
@@ -60,7 +60,7 @@ export default function UpdateProdukPage({ params }) {
             name: product.name,
             category: product.category,
             price: product.price,
-            stock: product.stock,
+            status: product.status,
             image: product.image ? product.image : null,
           });
           setOriginalName(product.name);
@@ -83,9 +83,9 @@ export default function UpdateProdukPage({ params }) {
   }, [id]);
 
   const handleUpdate = async () => {
-    const { name, category, price, stock, image } = formData;
+    const { name, category, price, status, image } = formData;
 
-    if (!name || !category || price <= 0 || stock <= 0 || !image) {
+    if (!name || !category || price <= 0 || !status || !image) {
       setValidationMessage("Semua field wajib diisi dan tidak boleh bernilai 0.");
       setTimeout(() => setValidationMessage(""), 3000);
       return;
@@ -110,7 +110,7 @@ export default function UpdateProdukPage({ params }) {
       formDataToSend.append("name", name);
       formDataToSend.append("category", category);
       formDataToSend.append("price", price);
-      formDataToSend.append("stock", stock);
+      formDataToSend.append("status", status);
       if (image instanceof File) {
         formDataToSend.append("image", image);
       }
@@ -155,7 +155,7 @@ export default function UpdateProdukPage({ params }) {
             value={{
               name: formData.name,
               price: formData.price,
-              stock: formData.stock,
+              status: formData.status,
             }}
             onChange={(updatedFields) =>
               setFormData({ ...formData, ...updatedFields })}

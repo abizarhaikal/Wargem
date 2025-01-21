@@ -1,5 +1,13 @@
 import { Input } from "@/components/ui/Input";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 export function ProductForm({ value, onChange }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,14 +34,19 @@ export function ProductForm({ value, onChange }) {
         />
       </div>
       <div>
-        <label className="text-sm font-semibold text-gray-700">Stock</label>
-        <Input
-          type="number"
-          name="stock"
-          placeholder="Stock"
-          value={value.stock}
-          onChange={handleChange}
-        />
+        <label className="text-sm font-semibold text-gray-700">Status</label>
+        <Select
+          onValueChange={(status) => onChange({ status })}
+          value={value.status}
+        >
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Pilih Status" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Tersedia">Tersedia</SelectItem>
+            <SelectItem value="Habis">Habis</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
     </div>
   );
