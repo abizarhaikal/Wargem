@@ -2,14 +2,13 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";  // Pastikan mengimpor useRouter
+import { usePathname, useRouter } from "next/navigation";
 import { useMenuItems } from "@/hooks/useMenuItems";
 import { useMenuCategories } from "@/hooks/use-menu-category";
 import { Button } from "./button";
 import { useCart } from "@/context/CardContext";
 
 export default function CardMenu() {
-  const router = useRouter();  // Deklarasikan router
   const pathname = usePathname();
   const pathSegments = pathname.split("/");
   const isRoot = pathname === "/" || pathname === "/menu";
@@ -18,20 +17,38 @@ export default function CardMenu() {
   const { menuItems: allMenuItems, loading: allLoading, error: allError } = useMenuItems();
   const { menuItems: categoryItems, loading: categoryLoading, error: categoryError } = useMenuCategories(category);
 
-  const menuItems = isRoot ? allMenuItems : categoryItems;
+  // Filter item yang statusnya "Tersedia"
+  const filteredAllMenuItems = allMenuItems.filter((item) => item.status === "Tersedia");
+  const filteredCategoryItems = categoryItems.filter((item) => item.status === "Tersedia");
+
+  const menuItems = isRoot ? filteredAllMenuItems : filteredCategoryItems;
   const loading = isRoot ? allLoading : categoryLoading;
   const error = isRoot ? allError : categoryError;
 
-  const { addToCart, removeFromCart } = useCart();
+  const { cartItems, addToCart, removeFromCart } = useCart();
 
   const [counters, setCounters] = useState([]);
+  const [totalItems, setTotalItems] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const router = useRouter();
 
   useEffect(() => {
-    if (menuItems && menuItems.length > 0) {
-      const initialCounters = menuItems.map(() => 0);
-      setCounters(initialCounters);
+    if (menuItems && menuItems.length > 0 && counters.length === 0) {
+      setCounters(new Array(menuItems.length).fill(0));
     }
   }, [menuItems]);
+
+  useEffect(() => {
+    const newTotalItems = counters.reduce((acc, count) => acc + count, 0);
+    setTotalItems(newTotalItems);
+
+    const newTotalPrice = counters.reduce(
+      (acc, count, index) => acc + (menuItems[index]?.price || 0) * count,
+      0
+    );
+    setTotalPrice(newTotalPrice);
+  }, [counters, menuItems]);
 
   if (loading) {
     return (
@@ -62,30 +79,28 @@ export default function CardMenu() {
   }
 
   const increment = (index) => {
-    const updatedCounters = [...counters];
-    updatedCounters[index] += 1;
-    setCounters(updatedCounters);
+    const newCounters = [...counters];
+    newCounters[index] += 1;
+    setCounters(newCounters);
     addToCart(menuItems[index]);
+    setTotalPrice(totalPrice + (menuItems[index]?.price || 0));
+    setTotalItems(totalItems + 1);
   };
 
   const decrement = (index) => {
-    if (counters[index] > 0) {
-      const updatedCounters = [...counters];
-      updatedCounters[index] -= 1;
-      setCounters(updatedCounters);
+    const newCounters = [...counters];
+    if (newCounters[index] > 0) {
+      newCounters[index] -= 1;
+      setCounters(newCounters);
       removeFromCart(menuItems[index].id);
+      setTotalPrice(totalPrice - (menuItems[index]?.price || 0));
+      setTotalItems(totalItems - 1);
     }
   };
 
-  const totalItems = counters.reduce((sum, count) => sum + count, 0);
-  const totalPrice = counters.reduce(
-    (sum, count, index) => sum + count * (menuItems[index]?.price || 0),
-    0
-  );
-
   const handleCheckout = () => {
     if (totalItems > 0) {
-      router.push("/checkout"); // Navigasi ke halaman checkout
+      router.push("/checkout");
     } else {
       alert("Your cart is empty!");
     }
@@ -139,33 +154,16 @@ export default function CardMenu() {
       </div>
 
       {totalItems > 0 && (
-        <div
-          className="fixed bottom-4 left-4 right-4 md:left-1/4 md:right-1/4 flex justify-between items-center bg-secondary py-3 px-5 rounded-lg shadow-lg"
-          style={{
-            backgroundColor: "#FDF2F8",
-            color: "black",
-          }}
-        >
+        <div className="fixed bottom-4 left-4 right-4 md:left-1/4 md:right-1/4 flex justify-between items-center bg-secondary py-3 px-5 rounded-lg shadow-lg">
           <div>
-            <p
-              className="text-lg font-semibold"
-              style={{
-                color: "#EF4444",
-              }}
-            >
-              Total
-            </p>
+            <p className="text-lg font-semibold text-red-500">Total</p>
             <p className="text-sm">
               {totalItems} item{totalItems > 1 && "s"} - Rp{" "}
               {totalPrice.toLocaleString("id-ID")}
             </p>
           </div>
           <Button
-            className="bg-primary py-2 px-4 rounded-lg hover:opacity-90"
-            style={{
-              backgroundColor: "#EF4444",
-              color: "white",
-            }}
+            className="bg-red-500 py-2 px-4 rounded-lg hover:opacity-90 text-white"
             onClick={handleCheckout}
           >
             CHECK OUT
