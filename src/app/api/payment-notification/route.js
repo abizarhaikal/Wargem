@@ -1,6 +1,4 @@
-// app/api/payment-notification/route.js
 import { NextResponse } from 'next/server';
-import PocketBase from 'pocketbase';
 import pb from '@/services/pocketbaseservice';
 
 export const dynamic = 'force-dynamic';
@@ -8,31 +6,34 @@ export const dynamic = 'force-dynamic';
 export async function POST(request) {
   try {
     const notification = await request.json();
-    
-    // Verify the transaction status
-    if (notification.transaction_status === 'settlement' || 
+    console.log('Notification received:', notification);
+
+    if (notification.transaction_status === 'settlement' ||
         notification.transaction_status === 'capture') {
-      
-      // Extract order details from the order_id
-      const orderData = JSON.parse(Buffer.from(notification.order_id, 'base64').toString('utf-8'));
-      console.log(notification)
-      // Create order record in PocketBase
-      const data = {
-        total_price: parseFloat(notification.gross_amount),
-        customer: '', // ID relasi untuk customer
-        status_order: 'pending',        // Status order awal
-        menu:[],        // Array ID relasi menu
-        no_table: 2, // Nomor meja
-        items: [],       // Array ID relasi item
-        payment_status: 'completed',    // Status pembayaran
-      };
 
-      await pb.collection('orders').create(data);
+      // Update status order dengan await untuk memastikan perubahan tersimpan
+      try {
+        const updatedOrder = await pb.collection('orders').update(notification.order_id, {
+          payment_status: 'completed',
+          transaction_id: notification.transaction_id,
+          payment_type: notification.payment_type,
+          status_order: 'pending' // Update status order juga
+        });
 
-      return NextResponse.json({ success: true });
+        console.log('Order updated successfully:', updatedOrder);
+        
+        // Redirect ke root setelah sukses
+        return NextResponse.redirect('https://endlessly-pretty-yeti.ngrok-free.app/');
+      } catch (updateError) {
+        console.error('Error updating order:', updateError);
+        throw updateError; // Re-throw untuk ditangkap oleh error handler utama
+      }
     }
 
-    return NextResponse.json({ success: false, message: 'Invalid transaction status' });
+    return NextResponse.json({ 
+      success: false, 
+      message: 'Invalid transaction status' 
+    });
   } catch (error) {
     console.error('Payment notification error:', error);
     return NextResponse.json(

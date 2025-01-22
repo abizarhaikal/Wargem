@@ -8,9 +8,12 @@ export default function OrderHistoryPage() {
   const [historyItems, setHistoryItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const USER_ID = localStorage.getItem("userId");
+
+  
+  
 
   useEffect(() => {
+    const USER_ID = localStorage.getItem("userId");
     const fetchOrders = async () => {
       try {
         // Mendapatkan userId dari sesi PocketBase
@@ -25,6 +28,7 @@ export default function OrderHistoryPage() {
         const orders = await pb.collection("orders").getFullList({
           filter: `customer="${USER_ID}"`, // Filter berdasarkan customer (user_id)
           expand: "items,menu", // Ekspansi relasi ke items dan menu
+          sort: "-created",
         });
 
         // Format data

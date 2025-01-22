@@ -10,7 +10,7 @@ import OrderItemsTable from "../../../components/ui/OrderItems"; // Import Order
 export default function Dashboard() {
   return (
     <SidebarProvider>
-      <div className="flex h-screen w-full">
+      <div className="flex h-screen w-full ml-12">
         {/* Sidebar */}
         <CustomSidebar />
 
