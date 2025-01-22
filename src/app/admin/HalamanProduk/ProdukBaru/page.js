@@ -1,22 +1,20 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // Untuk navigasi halaman
-import { ArrowLeft } from "lucide-react"; // Import ikon dari lucide-react
+import { useRouter } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DateInput } from "@/components/ui/admin/ProdukBaru/DateInput";
 import { ImageUpload } from "@/components/ui/admin/ProdukBaru/ImageUpload";
 import { ProductForm } from "@/components/ui/admin/ProdukBaru/ProductForm";
 import { CategorySelector } from "@/components/ui/admin/ProdukBaru/CategorySelector";
 import { createProduct, checkDuplicateProduct } from "@/hooks/useProduct";
-import { AlertDialog } from "@radix-ui/react-alert-dialog";
-import AlertDialogCustom from "@/components/ui/alertDialogCustom";
 
 export default function ProdukPage() {
   const [formData, setFormData] = useState({
     name: "",
     category: "",
     price: 0,
-    stock: 0,
+    status: "", // Menggunakan status sebagai pengganti stock
     image: null,
   });
   const [statusMessage, setStatusMessage] = useState({ type: "", text: "" });
@@ -24,11 +22,11 @@ export default function ProdukPage() {
   const router = useRouter();
 
   const handleSave = async () => {
-    const { name, category, price, stock, image } = formData;
+    const { name, category, price, status, image } = formData;
 
-    if (!name || !category || price <= 0 || stock <= 0 || !image) {
+    if (!name || !category || price <= 0 || !status || !image) {
       setValidationMessage("Semua field wajib diisi dan tidak boleh bernilai 0.");
-      setTimeout(() => setValidationMessage(""), 3000); // Hapus pesan setelah 3 detik
+      setTimeout(() => setValidationMessage(""), 3000);
       return;
     }
 
@@ -42,9 +40,9 @@ export default function ProdukPage() {
         return;
       }
 
-      await createProduct({ name, category, price, stock, image });
+      await createProduct({ name, category, price, status, image });
       setStatusMessage({ type: "success", text: "Data berhasil disimpan!" });
-      setFormData({ name: "", category: "", price: 0, stock: 0, image: null });
+      setFormData({ name: "", category: "", price: 0, status: "", image: null });
     } catch (error) {
       setStatusMessage({ type: "error", text: "Terjadi kesalahan saat menyimpan data." });
       console.error(error);
@@ -75,7 +73,7 @@ export default function ProdukPage() {
             value={{
               name: formData.name,
               price: formData.price,
-              stock: formData.stock,
+              status: formData.status,
             }}
             onChange={(updatedFields) =>
               setFormData({ ...formData, ...updatedFields })
@@ -109,7 +107,6 @@ export default function ProdukPage() {
           )}
         </div>
       </div>
-      <AlertDialogCustom />
     </div>
   );
 }

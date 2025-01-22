@@ -19,26 +19,12 @@ import {
   ShoppingBag,
   History,
 } from "lucide-react";
-import { PaymentButton } from "./PaymentButton";
 
 export default function MySidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activePath, setActivePath] = useState("/");  
   const pathname = usePathname();
-  const router = useRouter();
-  const paymentRequest = {
-    amount: 50000,
-    customerName: 'John Doe',
-    customerEmail: 'john@example.com',
-    itemDetails: [
-      {
-        id: 'item1',
-        name: 'Product Name',
-        price: 50000,
-        quantity: 1,
-      }
-    ]
-  };
+  const router = useRouter();  // Tambahkan hook router
 
   const navigation = [
     {
@@ -76,6 +62,11 @@ export default function MySidebar() {
     router.push(path);
     setActivePath(path);
     setIsOpen(false);
+  };
+
+  // Fungsi untuk menuju ke halaman checkout
+  const handleGoToCheckout = () => {
+    router.push("/checkout");  // Menavigasi ke halaman checkout
   };
 
   return (
@@ -122,14 +113,13 @@ export default function MySidebar() {
             <Button
               variant="outline"
               className="w-full flex items-center gap-2 bg-white hover:bg-gray-100 text-red-500"
-              onClick={() => alert("Keranjang Belanja")}
+              onClick={handleGoToCheckout}  // Navigasi ke halaman checkout
             >
               <ShoppingBag size={20} />
               <span>Keranjang Belanja</span>
             </Button>
           </div>
         </div>
-        <PaymentButton {...paymentRequest}/>
       </aside>
 
       {/* Header & Navigasi Mobile */}
@@ -188,7 +178,7 @@ export default function MySidebar() {
                   <Button
                     variant="outline"
                     className="w-full flex items-center gap-2 bg-white hover:bg-gray-100 text-red-500"
-                    onClick={() => alert("Keranjang Belanja")}
+                    onClick={handleGoToCheckout}  // Navigasi ke halaman checkout
                   >
                     <ShoppingBag size={20} />
                     <span>Keranjang Belanja</span>
