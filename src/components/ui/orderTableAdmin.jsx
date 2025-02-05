@@ -18,7 +18,7 @@ const formatRupiah = (value) =>
     currency: "IDR",
   }).format(value);
 
-export default function OrderTable({
+export default function OrderTableAdmin({
   orderItems,
   handleStatusUpdate,
   updateLoading,
@@ -26,8 +26,7 @@ export default function OrderTable({
   // Hitung total pendapatan
   const totalRevenue = orderItems.reduce(
     (total, order) =>
-      total +
-      order.items.reduce((sum, item) => sum + item.totalPrice, 0),
+      total + order.items.reduce((sum, item) => sum + item.totalPrice, 0),
     0
   );
 
@@ -87,7 +86,9 @@ export default function OrderTable({
                 </TableCell>
                 <TableCell className="p-4">{order.noTable}</TableCell>
                 <TableCell className="p-4">{totalQuantity}</TableCell>
-                <TableCell className="p-4">{formatRupiah(totalPrice)}</TableCell>
+                <TableCell className="p-4">
+                  {formatRupiah(totalPrice)}
+                </TableCell>
                 <TableCell className="p-4">
                   <span
                     className={`py-1 px-3 rounded-full text-xs font-medium ${
