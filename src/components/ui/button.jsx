@@ -1,9 +1,9 @@
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva } from "class-variance-authority";
+import React from "react";  // Pastikan React diimpor
+import { cva } from "class-variance-authority";  // Pastikan cva diimpor
+import { cn } from "@/lib/utils";  // Pastikan path sesuai
+import { Slot } from "@radix-ui/react-slot";  // Pastikan Slot diimpor jika digunakan
 
-import { cn } from "@/lib/utils"
-
+// Variasi untuk button menggunakan cva
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
@@ -32,17 +32,20 @@ const buttonVariants = cva(
       size: "default",
     },
   }
-)
+);
 
+// Komponen Button menggunakan forwardRef
 const Button = React.forwardRef(({ className, variant, size, asChild = false, ...props }, ref) => {
-  const Comp = asChild ? Slot : "button"
+  const Comp = asChild ? Slot : "button";  // Pilih tag sesuai dengan asChild
   return (
-    (<Comp
-      className={cn(buttonVariants({ variant, size, className }))}
+    <Comp
+      className={cn(buttonVariants({ variant, size, className }))}  // Gunakan cn untuk className
       ref={ref}
-      {...props} />)
+      {...props}
+    />
   );
-})
-Button.displayName = "Button"
+});
 
-export { Button, buttonVariants }
+Button.displayName = "Button";  // Menambahkan displayName pada komponen Button
+
+export { Button, buttonVariants };  // Mengekspor Button dan buttonVariants
